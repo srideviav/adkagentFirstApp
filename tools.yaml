@@ -1,0 +1,27 @@
+sources:
+  cloudsql_sqlserver:
+    kind: cloud-sql-mssql
+    project: dularish-first-mcp-test-proj
+    region: us-central1
+    instance: testsqlserverformcp
+    database: simpledb
+    user: sqlserver
+    password: TestPassword
+    ipAddress: 34.9.11.49
+
+tools:
+  get-student-rollnumber-with-name:
+    kind: mssql-sql
+    source: cloudsql_sqlserver
+    description: Get the student rollnumber with name
+    statement: select * from dbo.students;
+  # ping_db:
+  #   kind: mssql-execute-sql
+  #   source: cloudsql_sqlserver
+  #   description: Run a simple query
+
+toolsets:
+  sahayak_toolset:
+    - get-student-rollnumber-with-name
+  # test_toolset:
+  #   - ping_db

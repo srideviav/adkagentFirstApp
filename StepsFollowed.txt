@@ -1,0 +1,24 @@
+Create Cloud SQL - MSSQL Database instance 
+
+Create Database, with table data
+
+Make sure that database project is accessible for user with which login is going to be performed
+
+Download toolbox bin/exe file from https://github.com/googleapis/genai-toolbox based on the CPU platform from releases page
+    - Place it at some path
+
+Create tools.yaml and figure out how to specify details as per your database type
+
+Start MCP server by running the command : <toolbox_path> --tools-file "<tools.yaml_path>"
+
+Install ADK by running the command : pip install google-adk toolbox-core
+
+Create agent by running the command : adk create <AgentName>
+
+Configure agent code to make sure right MCP server is used and prompts
+
+Login to the right account with command : gcloud auth application-default login
+
+Make sure & Set the env var value of "GOOGLE_APPLICATION_CREDENTIALS" to the right file as pointed by login command
+
+Run the agent by being just out side the agent folder and running the command : adk web
