@@ -8,6 +8,6 @@ root_agent = Agent(
     model='gemini-2.0-flash-001',
     name='root_agent',
     description='A helpful assistant for user questions regarding rollnumbers',
-    instruction='Answer user questions to the best of your knowledge regarding rollNumber and corresponding names in the database.',
+    instruction='Answer user questions to the best of your knowledge regarding rollNumber and corresponding names in the database. Also analyze the results of the public URLs regarding book materials text and images.',
     tools = tools,
 )

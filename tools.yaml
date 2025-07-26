@@ -8,6 +8,16 @@ sources:
     user: sqlserver
     password: TestPassword
     ipAddress: 34.9.11.49
+  bigquery-source:
+    kind: bigquery
+    project: dularish-first-mcp-test-proj
+  # firestore-http:
+  #   kind: http
+  #   base_url: https://firestore.googleapis.com/v1/projects/dularish-first-mcp-test-proj/databases/first-test-db-for-sahayak/documents
+  # firestore-source: # Does not work until next release
+  #   kind: firebase
+  #   project: dularish-first-mcp-test-proj
+  #   database: first-test-db-for-sahayak  # Optional, defaults to "(default)"
 
 tools:
   get-student-rollnumber-with-name:
@@ -15,6 +25,29 @@ tools:
     source: cloudsql_sqlserver
     description: Get the student rollnumber with name
     statement: select * from dbo.students;
+  get-list-of-subject-grade:
+    kind: bigquery-sql
+    source: bigquery-source
+    description: Gets the list of subjects and corresponding grades for which book materials are available
+    statement: SELECT subject,grade FROM `dularish-first-mcp-test-proj.documentai.books`
+  get-book-for-subject-grade:
+    kind: bigquery-sql
+    source: bigquery-source
+    description: |
+      Gets the book materials' google cloud storage public access link for a specific subject and grade which contains file in the form of Document AI OCR json
+      Example:
+      {{
+          "subject": "Maths",
+          "grade": "first",
+      }}
+    parameters:
+      - name: subject
+        type: string
+        description: Subject for which the book is required
+      - name: grade
+        type: string
+        description: Grade for which the book is required
+    statement: SELECT book FROM `dularish-first-mcp-test-proj.documentai.books` WHERE subject = @subject AND grade = @grade
   # ping_db:
   #   kind: mssql-execute-sql
   #   source: cloudsql_sqlserver
@@ -23,5 +56,7 @@ tools:
 toolsets:
   sahayak_toolset:
     - get-student-rollnumber-with-name
+    - get-list-of-subject-grade
+    - get-book-for-subject-grade
   # test_toolset:
   #   - ping_db
