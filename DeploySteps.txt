@@ -1,0 +1,13 @@
+Followed as per https://google.github.io/adk-docs/deploy/cloud-run/#defining-multiple-agents
+    gCloud CLI (2nd tab)
+
+pip freeze > requirements.txt
+    Remove pywin32
+
+Prepare main.py
+
+Make Dockerfile
+
+Set Env vars
+
+gcloud run deploy multi-agent-service --source . --region $env:GOOGLE_CLOUD_LOCATION --project $env:GOOGLE_CLOUD_PROJECT --allow-unauthenticated --set-env-vars="GOOGLE_CLOUD_PROJECT=$env:GOOGLE_CLOUD_PROJECT,GOOGLE_CLOUD_LOCATION=$env:GOOGLE_CLOUD_LOCATION,GOOGLE_GENAI_USE_VERTEXAI=$env:GOOGLE_GENAI_USE_VERTEXAI"
